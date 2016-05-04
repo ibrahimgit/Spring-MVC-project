@@ -4,6 +4,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+	
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
@@ -17,7 +18,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[]{"/*"};
+		return new String[]{"/"}; // the URL mapping "/" is mandatory else something wierd issue will come up
 	}
 
 	

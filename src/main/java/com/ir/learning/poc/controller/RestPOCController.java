@@ -20,7 +20,6 @@ import com.ir.learning.poc.services.FooImplService;
 
 
 @RestController
-//@Controller
 @RequestMapping("/poc")
 public class RestPOCController {
 	
