@@ -4,19 +4,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.ir.learning.poc.domainmodel.Department;
+import com.ir.learning.poc.interceptor.PocInterceptor;
 
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages="com.ir.learning.poc")
-@ImportResource("classpath:poc-context.xml") //@Configuration class-centric use of XML with @ImportResource
-//@PropertySource("classpath:application.properties")
+//@ImportResource("classpath:poc-context.xml") //@Configuration class-centric use of XML with @ImportResource
+@PropertySource("classpath:application.properties")
 public class ApplicationConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
@@ -28,6 +31,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter {
 	@Override //This is mandatory for view resolver
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		registry.jsp();
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new PocInterceptor());
 	}
 	
 	/*@Bean // This is not required as this is default view resolver bean for dispatcher servlet

@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,9 @@ import com.ir.learning.poc.services.FooImplService;
 public class RestPOCController {
 	
 	private static final Logger LOGGER = Logger.getLogger(RestPOCController.class);
+	
+	@Autowired
+	private Environment environment;
 	
 	@Autowired
 	private Employee employee;
@@ -52,12 +56,13 @@ public class RestPOCController {
 	@RequestMapping(value = "helloworld" , method = RequestMethod.GET)
 	public /*@ResponseBody*/ String getHelloWorld() {
 		LOGGER.debug("inside getHelloWorld");
+		System.out.println("" + environment.getProperty("recipient"));
 		return "Hello " + recipient;
 	}
 	
 	@RequestMapping(value = "session", method = RequestMethod.GET)
 	public /*@ResponseBody*/ String getSessionObject(@RequestParam("name") String name) {
-		LOGGER.debug("Befor	e setting, Name: " + employee.getName());
+		LOGGER.debug("Before setting, Name: " + employee.getName());
 		
 		LOGGER.debug("dumyImplService: " + dumyImplService);
 		LOGGER.debug("department: " + department);
