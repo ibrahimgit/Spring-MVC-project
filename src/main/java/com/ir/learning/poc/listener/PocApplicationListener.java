@@ -1,5 +1,6 @@
 package com.ir.learning.poc.listener;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PocApplicationListener implements ApplicationContextAware, ApplicationListener<ApplicationContextEvent> {
 	
+	private static final Logger LOGGER = Logger.getLogger(PocApplicationListener.class);
+	
 	private ApplicationContext applicationContext;
 
 	public void onApplicationEvent(ApplicationContextEvent event) {
@@ -18,7 +21,7 @@ public class PocApplicationListener implements ApplicationContextAware, Applicat
 		for(String beanName : beanDefinitionNames) {
 			if(!beanName.contains("scopedTarget")) {
 				String beanClassName = applicationContext.getBean(beanName).getClass().toString();
-				System.out.println(beanClassName);
+				LOGGER.debug(beanClassName);
 			}
 		}
 		
