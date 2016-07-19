@@ -31,8 +31,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		super.configure(http);
-		http.authorizeRequests().anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login").permitAll()/*.and().httpBasic()*/;
+		//super.configure(http);
+		//http.authorizeRequests().anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login").permitAll()/*.and().httpBasic()*/;
+		http.
+			authorizeRequests().
+				antMatchers("/poc/helloworld").permitAll().
+				anyRequest().fullyAuthenticated().and().formLogin().loginPage("/login").permitAll().and().httpBasic();
+				
 	}
 
 }
